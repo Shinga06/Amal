@@ -1067,6 +1067,188 @@
       }
     }
 
+    /* --- Gallery Section --- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(161, 127, 83, 0.25);
+      aspect-ratio: 4 / 3;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(51, 44, 34, 0.03);
+      transition: transform var(--transition-smooth), box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--color-bronze-light);
+      box-shadow: 0 12px 30px rgba(124, 98, 64, 0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--transition-smooth);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(51, 44, 34, 0.9) 0%, rgba(51, 44, 34, 0.4) 60%, rgba(51, 44, 34, 0.1) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-category {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-bronze-light);
+      margin-bottom: 0.4rem;
+      transform: translateY(15px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gallery-item:hover .gallery-category {
+      transform: translateY(0);
+    }
+
+    .gallery-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: var(--bg-primary);
+      transform: translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+    }
+
+    .gallery-item:hover .gallery-title {
+      transform: translateY(0);
+    }
+
+    /* --- Lightbox Modal --- */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(40, 34, 27, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 80vh;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(161, 127, 83, 0.3);
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lightbox-modal.active .lightbox-content {
+      transform: scale(1);
+    }
+
+    .lightbox-img {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--bg-primary);
+      cursor: pointer;
+      transition: color var(--transition-fast), transform var(--transition-fast);
+      line-height: 1;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(51, 44, 34, 0.4);
+      border-radius: 50%;
+      border: 1px solid rgba(250, 246, 239, 0.15);
+      z-index: 2010;
+    }
+
+    .lightbox-close:hover {
+      color: var(--color-bronze-light);
+      transform: scale(1.1);
+      background-color: rgba(51, 44, 34, 0.7);
+    }
+
+    .lightbox-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(40, 34, 27, 0.95) 0%, rgba(40, 34, 27, 0.8) 80%, rgba(40, 34, 27, 0) 100%);
+      padding: 1.5rem 2rem 2rem 2rem;
+      color: var(--bg-primary);
+      text-align: center;
+    }
+
+    .lightbox-caption-cat {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-bronze-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .lightbox-caption-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+
     /* --- Accessibility & Reduced Motion --- */
     @media (prefers-reduced-motion: reduce) {
       .reveal {
@@ -1096,6 +1278,11 @@
       .services-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
       }
       
       .why-grid {
@@ -1264,6 +1451,11 @@
         grid-template-columns: 1fr;
       }
 
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+
       .reasons-list {
         grid-template-columns: 1fr;
         gap: 1.2rem;
@@ -1336,6 +1528,7 @@
         <ul class="nav-menu" id="nav-menu">
           <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#gallery" class="nav-link">Gallery</a></li>
           <li><a href="#why-us" class="nav-link">Why Us</a></li>
           <li><a href="#process" class="nav-link">Our Process</a></li>
           <li><a href="#areas" class="nav-link">Areas</a></li>
@@ -1537,6 +1730,76 @@
           </ul>
         </div>
 
+      </div>
+
+    </div>
+  </section>
+
+  <!-- --- Creations Gallery Section --- -->
+  <section class="section-padding" id="gallery">
+    <div class="container">
+      
+      <!-- Section Header -->
+      <div class="section-header reveal">
+        <span class="section-eyebrow">Visual Creations</span>
+        <h2 class="section-title">Creations Gallery</h2>
+        <p>A curated showcase of our bespoke event planning, elegant décor styling, and custom setups.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- Item 1 -->
+        <div class="gallery-item reveal stagger-1" data-category="Event Decor" data-title="Elegant Table Settings">
+          <img src="images/photo-1519167758481-83f550bb49b3.avif" alt="Elegant Table Settings for Wedding Banquet" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Event Decor</span>
+            <h4 class="gallery-title">Elegant Table Settings</h4>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="gallery-item reveal stagger-2" data-category="Floral Design" data-title="Table Centerpieces">
+          <img src="images/photo-1579854602797-2dca99fb09a1.avif" alt="Floral Centerpiece for Reception" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Floral Design</span>
+            <h4 class="gallery-title">Table Centerpieces</h4>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="gallery-item reveal stagger-3" data-category="Event Decor" data-title="Floral Bouquet Details">
+          <img src="images/photo-1644174547761-de211415598e.avif" alt="Detailed Floral Bouquet" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Floral Design</span>
+            <h4 class="gallery-title">Bouquet Details</h4>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="gallery-item reveal stagger-1" data-category="Event Planning" data-title="Decorated Backdrop Setup">
+          <img src="images/photo-1741969494307-55394e3e4071.avif" alt="Premium Event Backdrop Setup" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Event Planning</span>
+            <h4 class="gallery-title">Decorated Backdrop</h4>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="gallery-item reveal stagger-2" data-category="Event Decor" data-title="Tableware & Candlelit Dinner">
+          <img src="images/photo-1758682016275-59c2dd2e0aee.avif" alt="Candlelit Tableware Setup" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Event Decor</span>
+            <h4 class="gallery-title">Tableware & Candles</h4>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="gallery-item reveal stagger-3" data-category="Catering" data-title="Celebration Cakes & Details">
+          <img src="images/premium_photo-1664304118366-216dbb7c76cf.avif" alt="Exquisite Celebratory Cake" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Catering</span>
+            <h4 class="gallery-title">Cakes & Details</h4>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1936,6 +2199,7 @@
       <ul class="footer-links">
         <li><a href="#about">About Us</a></li>
         <li><a href="#services">Our Services</a></li>
+        <li><a href="#gallery">Creations Gallery</a></li>
         <li><a href="#why-us">Why Choose Us</a></li>
         <li><a href="#process">Our Process</a></li>
         <li><a href="#areas">Service Areas</a></li>
@@ -1947,6 +2211,18 @@
       </p>
     </div>
   </footer>
+
+  <!-- --- Lightbox Modal --- -->
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Image Lightbox View">
+    <span class="lightbox-close" id="lightbox-close" aria-label="Close Lightbox">&times;</span>
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-img" id="lightbox-img">
+      <div class="lightbox-caption">
+        <div class="lightbox-caption-cat" id="lightbox-caption-cat"></div>
+        <div class="lightbox-caption-title" id="lightbox-caption-title"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- --- Interactive Logic Script --- -->
   <script>
@@ -2032,6 +2308,57 @@
 
     revealElements.forEach(element => {
       revealObserver.observe(element);
+    });
+
+    // Lightbox Functionality
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxCaptionCat = document.getElementById('lightbox-caption-cat');
+    const lightboxCaptionTitle = document.getElementById('lightbox-caption-title');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        const category = item.getAttribute('data-category');
+        const title = item.getAttribute('data-title');
+
+        if (img) {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightboxCaptionCat.textContent = category || '';
+          lightboxCaptionTitle.textContent = title || '';
+          
+          lightboxModal.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Lock main scroll
+        }
+      });
+    });
+
+    function closeLightbox() {
+      lightboxModal.classList.remove('active');
+      document.body.style.overflow = ''; // Restore main scroll
+      setTimeout(() => {
+        lightboxImg.src = '';
+        lightboxImg.alt = '';
+      }, 400);
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    // Close lightbox on click outside the image container
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard support for accessibility (Escape to close)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
+        closeLightbox();
+      }
     });
   </script>
 
